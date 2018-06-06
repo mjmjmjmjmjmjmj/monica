@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "77646740ed930baa5e0db5adc6386704",
+    "content-hash": "c0dfe4b237a5d290302169695b587357",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -3140,6 +3140,72 @@
             "description": "A library to read, parse and export to PDF SVG files.",
             "homepage": "https://github.com/PhenX/php-svg-lib",
             "time": "2017-05-24T10:07:27+00:00"
+        },
+        {
+            "name": "php-on-couch/php-on-couch",
+            "version": "2.0.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/PHP-on-Couch/PHP-on-Couch.git",
+                "reference": "6d332f0bfd6ab91651dcaec134b3e1852a69a87c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/PHP-on-Couch/PHP-on-Couch/zipball/6d332f0bfd6ab91651dcaec134b3e1852a69a87c",
+                "reference": "6d332f0bfd6ab91651dcaec134b3e1852a69a87c",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.6.0",
+                "vlucas/phpdotenv": "^2.4"
+            },
+            "require-dev": {
+                "phpcheckstyle/phpcheckstyle": "*",
+                "phpunit/phpunit": "5.5.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "PHPOnCouch\\": "src/",
+                    "PHPOnCouch\\Exceptions\\": "src/Exceptions/",
+                    "PHPOnCouch\\Adapter\\": "src/Adapter/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPLv3"
+            ],
+            "authors": [
+                {
+                    "name": "Michael Bailly",
+                    "email": "mickael.bailly@free.fr",
+                    "homepage": "https://github.com/dready92/",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Clemens Sahs",
+                    "email": "clemens.sahs@slides-worker.org",
+                    "homepage": "https://github.com/ClemensSahs",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Alexis Côté",
+                    "email": "alexiscote19@hotmail.com",
+                    "homepage": "https://popojargo.github.io/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "CouchDB NoSQL database access in PHP",
+            "homepage": "https://github.com/PHP-on-Couch/PHP-on-Couch",
+            "keywords": [
+                "apache",
+                "couch",
+                "couchdb",
+                "db",
+                "driver",
+                "nosql"
+            ],
+            "time": "2017-11-27T21:26:44+00:00"
         },
         {
             "name": "phpseclib/phpseclib",

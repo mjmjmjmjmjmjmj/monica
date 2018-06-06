@@ -67,6 +67,14 @@ $db = [
             'engine' => null,
         ],
 
+        'couchdb' => [
+            'driver'   => 'couchdb',
+            'host'     => env('COUCHDB_HOST', 'localhost'),
+            'port'     => env('COUCHDB_PORT', '5984'),
+            'user'     => env('COUCHDB_USERNAME', ''),
+            'password' => env('COUCHDB_PASSWORD', ''),
+        ],
+
         'testing' => [
             'driver' => 'mysql',
             'host' => env('DB_TEST_HOST'),

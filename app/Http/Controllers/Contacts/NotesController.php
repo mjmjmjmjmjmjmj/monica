@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Contacts;
 
 use App\Note;
 use App\Contact;
+use App\Helpers\CouchDbHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\People\NotesRequest;
 use App\Http\Requests\People\NoteToggleRequest;
@@ -15,12 +16,17 @@ class NotesController extends Controller
      */
     public function get(Contact $contact)
     {
-        $notesCollection = collect([]);
-        $notes = $contact->notes()->latest()->get();
+        $client = CouchDbHelper::getAccountDatabase($contact->account_id);
 
-        foreach ($notes as $note) {
+        $selector = ['type' => ['$eq' => 'note']];
+        $notes = $client->limit(7)->find($selector);
+
+        $notesCollection = collect([]);
+
+        foreach ($notes as $noteArray) {
+            $note = new Note((array) $noteArray);
             $data = [
-                'id' => $note->id,
+                '_id' => $note->_id,
                 'parsed_body' => $note->parsedbody,
                 'body' => $note->body,
                 'is_favorited' => $note->is_favorited,

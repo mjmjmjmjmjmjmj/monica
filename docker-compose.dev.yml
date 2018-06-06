@@ -6,6 +6,7 @@ services:
       dockerfile: Dockerfile.dev
     links:
       - mysql
+      - couchdb
     ports:
       - 8080:80
     env_file: .env.dev
@@ -13,7 +14,7 @@ services:
       - PASSWORD_CLIENT_ID=10
       - PASSWORD_CLIENT_SECRET=4eYqKmvMr1nLhRNiI30fkPARM77j90MgBTaJADgN
     volumes:
-      - /var/www/monica/storage
+      - ./storage:/var/www/monica/storage
       - ./app:/var/www/monica/app
       - ./routes:/var/www/monica/routes
       - ./database:/var/www/monica/database
@@ -41,3 +42,11 @@ services:
       - "3000:80"
     volumes:
       - "/sessions"
+  
+  couchdb:
+    image: couchdb:2.1
+    ports:
+      - 5984:5984
+    environment:
+      - COUCHDB_USER=admin
+      - COUCHDB_PASSWORD=admin
