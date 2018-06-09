@@ -3,8 +3,8 @@
 namespace App\Models;
 
 use Jenssegers\Model\Model;
-use PHPOnCouch\CouchDocument;
 use App\Helpers\RandomHelper;
+use PHPOnCouch\CouchDocument;
 use App\Helpers\CouchDbHelper;
 
 class CouchUser extends Model
@@ -27,6 +27,7 @@ class CouchUser extends Model
                 return;
             }
         }
+
         return $doc;
     }
 
