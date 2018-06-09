@@ -1,0 +1,35 @@
+<head>
+    <script src="node_modules/pouchdb/dist//pouchdb.min.js"></script>
+    <script src="node_modules/pouchdb-authentication/dist/pouchdb.authentication.min.js"></script>
+</head>
+
+<body>
+    <script>
+        var db = new PouchDB('accountdb-1');
+        db.logIn('1', 'aaaa').then(function (batman) {
+            console.log("I'm Batman.", batman);
+            return remoteDb.info()
+        })
+        db.info().then(function (info) {
+            return db.query('all/debts', {
+                limit: 5 // don't return any results
+            });
+        })
+        .then(function (debts) {
+            console.log('debts', debts);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+
+        PouchDB.sync('accountdb-1', 'http://localhost:5984/accountdb-1');
+
+
+        // var remoteDb = new PouchDB('http://localhost:5984/accountdb-1', {skip_setup: true});
+        // remoteDb
+        // .logOut()
+        
+
+
+    </script>
+</body>

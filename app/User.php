@@ -386,7 +386,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Get the userId from the access_token
+     * Get the userId from the access_token.
      *
      * @return string
      */
@@ -409,6 +409,7 @@ class User extends Authenticatable
 
         $user_token = $token_header_array['jti'];
         $user_id = DB::table('oauth_access_tokens')->where('id', $user_token)->value('user_id');
+
         return $user_id;
     }
 }

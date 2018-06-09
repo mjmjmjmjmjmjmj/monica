@@ -2,9 +2,9 @@
 
 namespace App\Console\Commands;
 
-use App\Helpers\CouchDbHelper;
 use App\User;
 use App\Models\CouchUser;
+use App\Helpers\CouchDbHelper;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\Console\Helper\ProgressBar;
@@ -37,7 +37,7 @@ class MigrateCouch extends Command
         // if (! $this->confirm('Are you sure you want to proceed? This will delete ALL couchdb data in your environment. YOU SHOULD MAKE A BACKUP BEFORE RUNNING THIS COMMAND.')) {
         //     return;
         // }
-        
+
         $clientUsers = CouchDbHelper::client('_users');
         $adm = CouchDbHelper::admin();
 
@@ -57,9 +57,8 @@ class MigrateCouch extends Command
         $progress = new ProgressBar($output, count($users));
         $progress->start();
         foreach ($users as $user) {
-
             CouchUser::createFromUser($user);
-            
+
             //setting note design documents
             $favNotesFn = "function(doc) { if (doc.type === 'note' && doc.is_favorited === true) { emit(doc.created_at, null); } }";
             $notesByContact = "function(doc) { if (doc.type === 'note') { emit(doc.contact_id, null); } }";
@@ -68,7 +67,7 @@ class MigrateCouch extends Command
                 'language' => 'javascript',
                 'views' => [
                     'favorites'=> ['map' => $favNotesFn],
-                    'byContact' => ['map' => $notesByContact]
+                    'byContact' => ['map' => $notesByContact],
                 ],
             ];
             $client = CouchDbHelper::getAccountDatabase($user->account_id);
@@ -104,8 +103,6 @@ class MigrateCouch extends Command
         $progress->finish();
         $this->info('');
         $this->info('');
-
-
 
         $this->info('✓ Done migrating CouchDB. Enjoy your brand new offline first database !');
         $this->info('');
