@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use App\Helpers\CouchDbHelper;
-use App\Helpers\RandomHelper;
 use Jenssegers\Model\Model;
+use App\Helpers\RandomHelper;
+use App\Helpers\CouchDbHelper;
 
 class CouchUser extends Model
 {
@@ -12,7 +12,7 @@ class CouchUser extends Model
     protected $guarded = ['salt', 'password_sha', 'name', 'roles', 'type'];
 
     /**
-     * Get a user from his user_id
+     * Get a user from his user_id.
      *
      * @return CouchUser
      */
@@ -21,16 +21,17 @@ class CouchUser extends Model
         $client = CouchDbHelper::client('_users');
         try {
             $doc = $client->getDoc('org.couchdb.user:'.$userId);
-        } catch ( Exception $e ) {
-            if ( $e->getCode() == 404 ) {
-                return null;
+        } catch (Exception $e) {
+            if ($e->getCode() == 404) {
+                return;
             }
         }
-        return new CouchUser((array) $doc);
+
+        return new self((array) $doc);
     }
 
     /**
-     * Create a user from its equivalent in mysql
+     * Create a user from its equivalent in mysql.
      *
      * @return void
      */
@@ -45,7 +46,7 @@ class CouchUser extends Model
         // create user and roles
         $adm->createUser($userId, RandomHelper::generateRandomString());
         $adm->addRoleToUser($userId, $roleName);
-        
+
         // add custom data to user
         $couchUser = self::getOneById($userId);
         $couchUser->database = $databaseName;
@@ -56,5 +57,4 @@ class CouchUser extends Model
         $client->createDatabase();
         CouchDbHelper::admin(CouchDbHelper::getAccountDatabaseName($user->account_id))->addDatabaseMemberRole($roleName);
     }
-
 }

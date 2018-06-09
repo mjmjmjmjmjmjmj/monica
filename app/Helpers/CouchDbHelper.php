@@ -30,5 +30,4 @@ class CouchDbHelper
     {
         return 'accountdb-'.$accountId;
     }
-
 }

@@ -34,7 +34,7 @@ class NotesController extends Controller
                 'favorited_at_short' => \App\Helpers\DateHelper::getShortDate($note->favorited_at),
                 'created_at' => $note->created_at,
                 'created_at_short' => \App\Helpers\DateHelper::getShortDate($note->created_at),
-                'edit' => false, 
+                'edit' => false,
             ];
             $notesCollection->push($data);
         }
