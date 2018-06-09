@@ -21,18 +21,14 @@ class CouchDbHelper
         return new CouchAdmin($client);
     }
 
-    public static function getAccountDatabase($clientId)
+    public static function getAccountDatabase($accountId)
     {
-        return self::client(self::getAccountDatabaseName($clientId));
+        return self::client(self::getAccountDatabaseName($accountId));
     }
 
-    public static function getAccountDatabaseName($clientId)
+    public static function getAccountDatabaseName($accountId)
     {
-        return 'accountdb-'.$clientId;
+        return 'accountdb-'.$accountId;
     }
 
-    public static function getRoleName($clientId)
-    {
-        return 'account-'.$clientId;
-    }
 }

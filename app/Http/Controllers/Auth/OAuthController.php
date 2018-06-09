@@ -3,12 +3,15 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use App\Models\CouchUser;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Ircop\Antiflood\Facade\Antiflood;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 class OAuthController extends Controller
 {
@@ -47,12 +50,18 @@ class OAuthController extends Controller
         }
 
         try {
-            return response()->json($this->proxy([
+            $proxy = $this->proxy([
                 'username' => $email,
                 'password' => $password,
-                'grantType' => 'password',
-            ]));
+                'grantType' => 'password'
+            ]);
+            $userId = User::getUserIdFromAccessToken($proxy['access_token']);
+            $user = CouchUser::getOneById($userId);
+            $proxy['user'] = $user->toArray();
+
+            return response()->json($proxy);
         } catch (Exception $e) {
+            dd($e);
             return $this->handleError();
         }
     }
@@ -97,7 +106,7 @@ class OAuthController extends Controller
         ]);
 
         $data = json_decode($response->getBody());
-
+        
         return [
             'access_token' => $data->access_token,
             'expires_in' => $data->expires_in,
