@@ -56,7 +56,7 @@ class OAuthController extends Controller
                 'grantType' => 'password'
             ]);
             $userId = User::getUserIdFromAccessToken($proxy['access_token']);
-            $user = CouchUser::getOneById($userId);
+            $user = new CouchUser((array) CouchUser::getOneById($userId));
             $proxy['user'] = $user->toArray();
 
             return response()->json($proxy);

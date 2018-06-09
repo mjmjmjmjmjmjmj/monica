@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Helpers\CouchDbHelper;
 use App\Helpers\RandomHelper;
 use Jenssegers\Model\Model;
+use PHPOnCouch\CouchDocument;
 
 class CouchUser extends Model
 {
@@ -14,7 +15,7 @@ class CouchUser extends Model
     /**
      * Get a user from his user_id
      *
-     * @return CouchUser
+     * @return CouchDocument
      */
     public static function getOneById($userId)
     {
@@ -26,7 +27,7 @@ class CouchUser extends Model
                 return null;
             }
         }
-        return new CouchUser((array) $doc);
+        return $doc;
     }
 
     /**
